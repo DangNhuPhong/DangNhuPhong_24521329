@@ -38,3 +38,18 @@ body {
   border-radius: 8px;
   padding: 1.5rem;
 }
+:root {
+  --bg-primary: #ffffff;
+  --text-primary: #0f172a;
+  --accent: #0284c7;
+  --card-bg: #f8fafc;
+  --border-color: #cbd5e1;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --text-primary: #f8fafc;
+  --accent: #38bdf8;
+  --card-bg: #1e293b;
+  --border-color: #475569;
+}
