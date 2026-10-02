@@ -94,3 +94,41 @@ Implement an accessible dark mode theme engine.
 - Theme preference persists after page reload.
 - No console errors occur during theme switching.
 - The theme toggle can be operated using Tab and Enter.
+
+## Exercise 3 — Component Architecture & State Modeling
+
+### Component Architecture
+
+- Hero Section
+  - High-resolution portrait with explicit dimensions
+  - Headline
+  - Short professional pitch
+
+- Theme Switcher
+  - Accessible button
+  - Uses aria-pressed
+  - Provides dynamic theme state
+
+- Skills Matrix
+  - Categorized skill badges
+  - Organized using CSS Grid
+
+- Project Cards
+  - Self-contained article elements
+  - Project tags
+  - Project descriptions
+  - Repository links
+
+- Contact Form
+  - Native HTML form
+  - Required field validation
+  - Client-side state handling
+
+### Acceptance Criteria
+
+- Components are separated into clear semantic sections.
+- Project cards use self-contained article elements.
+- Theme switcher remains keyboard accessible.
+- Skills are displayed as categorized badges.
+- Contact form uses native HTML validation.
+- No external libraries are used.
