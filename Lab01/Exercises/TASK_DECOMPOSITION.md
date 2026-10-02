@@ -132,3 +132,29 @@ Implement an accessible dark mode theme engine.
 - Skills are displayed as categorized badges.
 - Contact form uses native HTML validation.
 - No external libraries are used.
+
+## T-03 — Resilient Component Architecture
+
+### T-03A — Component Skeleton
+
+- Define the semantic HTML structure for the resilient component.
+- Create the component container and project list structure.
+- Define the initial component state and rendering target.
+- Ensure the component uses semantic HTML and accessible structure.
+- Keep the component independent from external libraries.
+
+### T-03B — Live Data
+
+- Define the project data structure.
+- Render project data dynamically into the component.
+- Create self-contained project items using JavaScript.
+- Update the component when the data changes.
+- Avoid unsafe `innerHTML` usage.
+
+### T-03C — Empty / Error States
+
+- Implement the empty state when no project data is available.
+- Implement the error state when project data is invalid or cannot be loaded.
+- Ensure only the appropriate state is visible at a time.
+- Provide accessible status messages for empty and error conditions.
+- Verify the component remains usable across different data states.
