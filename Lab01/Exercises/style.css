@@ -1,0 +1,27 @@
+:root {
+  --bg-primary: #ffffff;
+  --text-primary: #0f172a;
+  --accent: #0284c7;
+  --card-bg: #f8fafc;
+  --border-color: #cbd5e1;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  color-scheme: light;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  line-height: 1.6;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
