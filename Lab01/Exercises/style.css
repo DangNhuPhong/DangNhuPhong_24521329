@@ -53,3 +53,158 @@ body {
   --card-bg: #1e293b;
   --border-color: #475569;
 }
+/* ========================================
+   EXERCISE 3
+   COMPONENT ARCHITECTURE
+   ======================================== */
+
+/* HERO */
+
+#hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+#hero header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+#hero figure {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: center;
+}
+
+#hero img {
+  display: block;
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* SKILLS */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.skill-category {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.skill-category h3 {
+  margin-bottom: 1rem;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.skill-list li {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+/* PROJECT CARDS */
+
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-size: 0.875rem;
+}
+
+.card-footer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* CONTACT FORM */
+
+#contact-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 600px;
+}
+
+#contact-form p {
+  display: grid;
+  gap: 0.5rem;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+#contact-form textarea {
+  resize: vertical;
+}
+
+#contact-form button {
+  width: fit-content;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  cursor: pointer;
+}
+
+#contact-form button:focus-visible,
+#contact-form input:focus-visible,
+#contact-form textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#form-status {
+  min-height: 1.5rem;
+}
+
+/* DESKTOP HERO */
+
+@media (min-width: 768px) {
+  #hero {
+    grid-template-columns: 2fr 1fr;
+  }
+}
