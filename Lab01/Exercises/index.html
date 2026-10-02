@@ -29,32 +29,149 @@
     </header>
 
     <main id="main-content" role="main">
-      <section id="about">
-        <h2>About</h2>
+      <section id="about" aria-labelledby="about-title">
+        <header>
+          <h2 id="about-title">About</h2>
+        </header>
+
         <p>This section contains information about the application.</p>
       </section>
 
-      <section id="projects">
-        <section id="projects">
-          <h2>Projects</h2>
+      <section id="hero" aria-labelledby="hero-title">
+        <header>
+          <h2 id="hero-title">Hello, I'm Phong</h2>
+          <p>Web Application Developer</p>
+          <p>
+            I build accessible, responsive and modern web applications using
+            native web technologies.
+          </p>
+        </header>
 
-          <div class="project-grid">
-            <article class="project-card">
+        <figure>
+          <img
+            src="image.png"
+            width="240"
+            height="240"
+            alt="Portrait of Phong"
+          />
+          <figcaption>Developer Portfolio</figcaption>
+        </figure>
+      </section>
+
+      <section id="skills" aria-labelledby="skills-title">
+        <header>
+          <h2 id="skills-title">Skills</h2>
+        </header>
+
+        <div class="skills-grid">
+          <article class="skill-category">
+            <h3>Frontend</h3>
+
+            <ul class="skill-list">
+              <li>HTML5</li>
+              <li>CSS3</li>
+              <li>JavaScript</li>
+            </ul>
+          </article>
+
+          <article class="skill-category">
+            <h3>Backend</h3>
+
+            <ul class="skill-list">
+              <li>Node.js</li>
+              <li>Express</li>
+              <li>REST API</li>
+            </ul>
+          </article>
+
+          <article class="skill-category">
+            <h3>Database</h3>
+
+            <ul class="skill-list">
+              <li>SQL</li>
+              <li>MySQL</li>
+              <li>MongoDB</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-title">
+        <header>
+          <h2 id="projects-title">Projects</h2>
+        </header>
+
+        <div class="project-grid">
+          <article class="project-card" data-category="frontend">
+            <header class="card-header">
               <h3>Project One</h3>
-              <p>A responsive web application project.</p>
-            </article>
+              <span class="badge">HTML/CSS</span>
+            </header>
 
-            <article class="project-card">
+            <p>A responsive web application project.</p>
+
+            <footer class="card-footer">
+              <a href="#" aria-label="View Project One repository">
+                Source Code
+              </a>
+            </footer>
+          </article>
+
+          <article class="project-card" data-category="javascript">
+            <header class="card-header">
               <h3>Project Two</h3>
-              <p>A modern JavaScript application.</p>
-            </article>
+              <span class="badge">JavaScript</span>
+            </header>
 
-            <article class="project-card">
+            <p>A modern JavaScript application.</p>
+
+            <footer class="card-footer">
+              <a href="#" aria-label="View Project Two repository">
+                Source Code
+              </a>
+            </footer>
+          </article>
+
+          <article class="project-card" data-category="database">
+            <header class="card-header">
               <h3>Project Three</h3>
-              <p>A data-driven application.</p>
-            </article>
-          </div>
-        </section>
+              <span class="badge">Database</span>
+            </header>
+
+            <p>A data-driven application.</p>
+
+            <footer class="card-footer">
+              <a href="#" aria-label="View Project Three repository">
+                Source Code
+              </a>
+            </footer>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <header>
+          <h2 id="contact-title">Contact Me</h2>
+        </header>
+
+        <form id="contact-form">
+          <p>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </p>
+
+          <p>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </p>
+
+          <p>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </p>
+
+          <button type="submit">Send Message</button>
+        </form>
       </section>
     </main>
     <script src="script.js"></script>
