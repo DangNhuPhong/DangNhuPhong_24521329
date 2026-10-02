@@ -18,3 +18,25 @@ themeToggle.addEventListener("click", () => {
 
   themeToggle.setAttribute("aria-pressed", newTheme === "dark");
 });
+
+/* ========================================
+   EXERCISE 3
+   CONTACT FORM
+   ======================================== */
+
+const contactForm = document.querySelector("#contact-form");
+
+const formStatus = document.querySelector("#form-status");
+
+contactForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!contactForm.checkValidity()) {
+    contactForm.reportValidity();
+    return;
+  }
+
+  formStatus.textContent = "Your message has been submitted successfully.";
+
+  contactForm.reset();
+});
