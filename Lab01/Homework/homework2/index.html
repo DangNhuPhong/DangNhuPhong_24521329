@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+
+    <meta
+      name="description"
+      content="An accessible keyboard-controlled drum kit with beat recording and playback."
+    />
+
+    <title>Drum Kit Engine</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to drum kit</a>
+
+    <header class="site-header">
+      <div class="container">
+        <p class="eyebrow">WEB AUDIO ENGINE</p>
+        <h1>Drum Kit Engine</h1>
+        <p>
+          Play drum sounds with your keyboard, record a beat, and replay your
+          sequence.
+        </p>
+      </div>
+    </header>
+
+    <main id="main-content" class="container">
+      <section aria-labelledby="pads-title" class="section">
+        <h2 id="pads-title">Drum Pads</h2>
+
+        <p id="keyboard-help">
+          Press A, S, D, F, J, K, or L to play a sound. You can also activate
+          each pad with Enter or Space.
+        </p>
+
+        <div class="drum-grid" id="drum-grid">
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="a"
+            data-sound="./assets/kick.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">A</span>
+            <span class="pad-name">Kick</span>
+          </button>
+
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="s"
+            data-sound="./assets/snare.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">S</span>
+            <span class="pad-name">Snare</span>
+          </button>
+
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="d"
+            data-sound="./assets/hihat.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">D</span>
+            <span class="pad-name">Hi-hat</span>
+          </button>
+
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="f"
+            data-sound="./assets/ride.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">F</span>
+            <span class="pad-name">Ride</span>
+          </button>
+
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="j"
+            data-sound="./assets/tom.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">J</span>
+            <span class="pad-name">Tom</span>
+          </button>
+
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="k"
+            data-sound="./assets/clap.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">K</span>
+            <span class="pad-name">Clap</span>
+          </button>
+
+          <button
+            class="drum-pad"
+            type="button"
+            data-key="l"
+            data-sound="./assets/boom.wav"
+            aria-describedby="keyboard-help"
+          >
+            <span class="pad-key">L</span>
+            <span class="pad-name">Boom</span>
+          </button>
+        </div>
+      </section>
+
+      <section aria-labelledby="recorder-title" class="section recorder">
+        <h2 id="recorder-title">Beat Recorder</h2>
+
+        <p>Start recording, play a rhythm, stop recording, then replay it.</p>
+
+        <div class="controls">
+          <button id="record-button" class="button button-record" type="button">
+            Start recording
+          </button>
+
+          <button id="stop-button" class="button" type="button" disabled>
+            Stop recording
+          </button>
+
+          <button
+            id="play-button"
+            class="button button-primary"
+            type="button"
+            disabled
+          >
+            Play recording
+          </button>
+
+          <button id="clear-button" class="button" type="button">
+            Clear beats
+          </button>
+        </div>
+
+        <p id="recording-status" role="status" aria-live="polite">
+          Ready to play.
+        </p>
+
+        <p id="beat-count">Recorded events: 0</p>
+
+        <h3>Recorded Events</h3>
+
+        <ol id="beat-list" aria-label="Recorded beat events">
+          <li>No beats recorded yet.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>Built with HTML5, CSS, and vanilla JavaScript.</p>
+      </div>
+    </footer>
+  </body>
+</html>
