@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <meta
+      name="description"
+      content="A resilient event landing page with a UTC countdown and accessible registration form."
+    />
+    <title>Event Hub</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#home">Event Hub</a>
+      <nav aria-label="Main navigation">
+        <a href="#countdown">Countdown</a>
+        <a href="#registration">Register</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <p class="eyebrow">Learn. Build. Connect.</p>
+        <h1 id="hero-title">The next chapter starts here.</h1>
+        <p class="hero-description">
+          Join our upcoming developer event and explore practical web
+          engineering.
+        </p>
+        <a class="primary-link" href="#registration">Register your interest</a>
+      </section>
+
+      <section
+        class="countdown-section"
+        id="countdown"
+        aria-labelledby="countdown-title"
+      >
+        <p class="eyebrow">Save the date</p>
+        <h2 id="countdown-title">Event countdown</h2>
+
+        <p
+          id="countdown-status"
+          class="status-message"
+          role="status"
+          aria-live="polite"
+        >
+          Preparing countdown…
+        </p>
+
+        <dl
+          id="countdown-clock"
+          class="countdown-grid"
+          aria-label="Time remaining until the event"
+          hidden
+        >
+          <div class="time-card">
+            <dt>Days</dt>
+            <dd id="days">00</dd>
+          </div>
+          <div class="time-card">
+            <dt>Hours</dt>
+            <dd id="hours">00</dd>
+          </div>
+          <div class="time-card">
+            <dt>Minutes</dt>
+            <dd id="minutes">00</dd>
+          </div>
+          <div class="time-card">
+            <dt>Seconds</dt>
+            <dd id="seconds">00</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section
+        class="registration-section"
+        id="registration"
+        aria-labelledby="registration-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">Stay connected</p>
+          <h2 id="registration-title">Register your interest</h2>
+          <p>Enter your details to try the registration form.</p>
+        </div>
+
+        <form id="registration-form">
+          <div class="form-field">
+            <label for="full-name">Full name</label>
+            <input
+              id="full-name"
+              name="name"
+              type="text"
+              autocomplete="name"
+              minlength="2"
+              maxlength="80"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              maxlength="254"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="message">Why are you interested? (optional)</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              maxlength="500"
+            ></textarea>
+          </div>
+
+          <button id="submit-button" class="primary-button" type="submit">
+            Submit registration
+          </button>
+
+          <p
+            id="form-status"
+            class="status-message"
+            role="status"
+            aria-live="polite"
+          >
+            Ready to register.
+          </p>
+
+          <button id="reset-button" class="secondary-button" type="reset">
+            Reset form
+          </button>
+        </form>
+
+        <section
+          id="confirmation"
+          class="confirmation-card"
+          aria-labelledby="confirmation-title"
+          hidden
+        >
+          <h3 id="confirmation-title">Registration preview</h3>
+          <p id="confirmation-name"></p>
+          <p id="confirmation-email"></p>
+          <p id="confirmation-message"></p>
+          <p class="note">
+            Demo only: this page does not send or store registration data on a
+            server.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Event Hub — Web Application Development</p>
+    </footer>
+  </body>
+</html>
