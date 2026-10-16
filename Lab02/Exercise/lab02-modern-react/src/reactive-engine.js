@@ -1,4 +1,4 @@
-import { createElement, renderToDOM } from "./mini-react.js";
+import { renderToDOM } from "./mini-react.js";
 
 const stateStore = [];
 let cursor = 0;
@@ -37,7 +37,7 @@ export function useState(initialValue) {
 }
 
 export function setupEventDelegation(rootContainer) {
-  const supportedEvents = ["click", "input", "keydown"];
+  const supportedEvents = ["click", "input", "change", "submit", "keydown"];
 
   for (const eventType of supportedEvents) {
     rootContainer.addEventListener(eventType, (event) => {
@@ -65,12 +65,48 @@ export function setupEventDelegation(rootContainer) {
 
 export function renderApp(App, rootContainer) {
   const rerender = () => {
+    // Save the currently focused element before rendering.
+    const activeElement = document.activeElement;
+    const shouldRestoreFocus =
+      activeElement &&
+      rootContainer.contains(activeElement) &&
+      activeElement.id;
+
+    const activeId = shouldRestoreFocus ? activeElement.id : null;
+
+    const selectionStart =
+      shouldRestoreFocus && "selectionStart" in activeElement
+        ? activeElement.selectionStart
+        : null;
+
+    const selectionEnd =
+      shouldRestoreFocus && "selectionEnd" in activeElement
+        ? activeElement.selectionEnd
+        : null;
+
     resetCursor();
 
     const vApp = App();
     const dom = renderToDOM(vApp);
 
     rootContainer.replaceChildren(dom);
+
+    // Restore focus and cursor position after rendering.
+    if (activeId) {
+      const replacement = document.getElementById(activeId);
+
+      if (replacement && rootContainer.contains(replacement)) {
+        replacement.focus();
+
+        if (
+          selectionStart !== null &&
+          selectionEnd !== null &&
+          typeof replacement.setSelectionRange === "function"
+        ) {
+          replacement.setSelectionRange(selectionStart, selectionEnd);
+        }
+      }
+    }
   };
 
   setRenderer(rerender);

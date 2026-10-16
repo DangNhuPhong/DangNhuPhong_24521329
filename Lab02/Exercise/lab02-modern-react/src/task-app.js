@@ -54,7 +54,9 @@ export function TaskApp() {
       h("input", {
         id: "task-input",
         value: input,
-        onInput: (event) => setInput(event.target.value),
+        onInput: (event) => {
+          setInput(event.target.value);
+        },
         placeholder: "Enter a task",
       }),
       h("button", { type: "submit" }, "Add Task"),
