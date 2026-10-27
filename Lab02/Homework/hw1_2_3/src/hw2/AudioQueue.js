@@ -28,14 +28,19 @@ export class AudioQueue {
 
   notify() {
     const snapshot = this.getSnapshot();
-    this.listeners.forEach((listener) => listener(snapshot));
+
+    this.listeners.forEach((listener) => {
+      listener(snapshot);
+    });
   }
 
   subscribe(listener) {
     this.listeners.add(listener);
     listener(this.getSnapshot());
 
-    return () => this.listeners.delete(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
   }
 
   async getContext() {
@@ -75,6 +80,7 @@ export class AudioQueue {
     });
 
     task.promise = promise;
+
     this.queue.push(task);
     this.notify();
     this.processNext();
@@ -101,13 +107,16 @@ export class AudioQueue {
     }
 
     const index = this.queue.findIndex((task) => task.id === taskId);
+
     if (index < 0) return false;
 
     const [task] = this.queue.splice(index, 1);
+
     task.status = "CANCELLED";
     task.controller.abort();
 
     this.settle(task, new DOMException("Task cancelled.", "AbortError"));
+
     this.notify();
 
     return true;
@@ -117,6 +126,7 @@ export class AudioQueue {
     if (this.closed || this.activeTask) return;
 
     const task = this.queue.shift();
+
     if (!task) {
       this.notify();
       return;
@@ -157,6 +167,7 @@ export class AudioQueue {
       }
 
       task.status = "SUCCESS";
+
       this.settle(task, null, {
         id: task.id,
         url: task.url,
@@ -164,10 +175,12 @@ export class AudioQueue {
       });
     } catch (error) {
       task.status = task.controller.signal.aborted ? "CANCELLED" : "ERROR";
+
       this.settle(task, error);
     } finally {
       this.activeTask = null;
       this.notify();
+
       queueMicrotask(() => this.processNext());
     }
   }
@@ -186,6 +199,7 @@ export class AudioQueue {
     for (const task of pending) {
       task.status = "CANCELLED";
       task.controller.abort();
+
       this.settle(task, new DOMException("Queue closed.", "AbortError"));
     }
 
