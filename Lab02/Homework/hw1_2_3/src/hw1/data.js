@@ -1,0 +1,93 @@
+export const columns = [
+  { key: "name", label: "Name", sortable: true },
+  { key: "email", label: "Email", sortable: true },
+  { key: "role", label: "Role", sortable: true },
+  { key: "status", label: "Status", sortable: true },
+];
+
+export const initialUsers = [
+  {
+    id: "u01",
+    name: "Nguyen An",
+    email: "an@example.com",
+    role: "Admin",
+    status: "Active",
+  },
+  {
+    id: "u02",
+    name: "Tran Binh",
+    email: "binh@example.com",
+    role: "Editor",
+    status: "Active",
+  },
+  {
+    id: "u03",
+    name: "Le Chi",
+    email: "chi@example.com",
+    role: "Viewer",
+    status: "Inactive",
+  },
+  {
+    id: "u04",
+    name: "Pham Dung",
+    email: "dung@example.com",
+    role: "Editor",
+    status: "Active",
+  },
+  {
+    id: "u05",
+    name: "Hoang Giang",
+    email: "giang@example.com",
+    role: "Viewer",
+    status: "Active",
+  },
+  {
+    id: "u06",
+    name: "Vo Hanh",
+    email: "hanh@example.com",
+    role: "Admin",
+    status: "Inactive",
+  },
+  {
+    id: "u07",
+    name: "Bui Khoa",
+    email: "khoa@example.com",
+    role: "Editor",
+    status: "Active",
+  },
+  {
+    id: "u08",
+    name: "Do Linh",
+    email: "linh@example.com",
+    role: "Viewer",
+    status: "Inactive",
+  },
+  {
+    id: "u09",
+    name: "Ngo Minh",
+    email: "minh@example.com",
+    role: "Admin",
+    status: "Active",
+  },
+  {
+    id: "u10",
+    name: "Dang Nam",
+    email: "nam@example.com",
+    role: "Editor",
+    status: "Active",
+  },
+  {
+    id: "u11",
+    name: "Phan Oanh",
+    email: "oanh@example.com",
+    role: "Viewer",
+    status: "Inactive",
+  },
+  {
+    id: "u12",
+    name: "Truong Phuc",
+    email: "phuc@example.com",
+    role: "Admin",
+    status: "Active",
+  },
+];
