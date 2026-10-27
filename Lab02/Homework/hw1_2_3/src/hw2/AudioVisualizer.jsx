@@ -8,18 +8,20 @@ export default function AudioVisualizer() {
   const animationRef = useRef(null);
   const analyserRef = useRef(null);
 
-  const [url, setUrl] = useState("");
+  const playbackListRef = useRef([]);
+  const playbackIndexRef = useRef(0);
+  const isPlayingRef = useRef(false);
 
+  const [url, setUrl] = useState("");
   const [snapshot, setSnapshot] = useState({
     queue: [],
     activeTask: null,
     closed: false,
   });
-
   const [message, setMessage] = useState("Enter a direct audio URL to begin.");
-
-  const [currentTrack, setCurrentTrack] = useState(null);
   const [loadedTracks, setLoadedTracks] = useState([]);
+  const [currentTrackId, setCurrentTrackId] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const queue = new AudioQueue();
@@ -29,6 +31,8 @@ export default function AudioVisualizer() {
 
     return () => {
       unsubscribe();
+
+      isPlayingRef.current = false;
 
       if (animationRef.current !== null) {
         cancelAnimationFrame(animationRef.current);
@@ -50,6 +54,20 @@ export default function AudioVisualizer() {
     };
   }, []);
 
+  function stopAnimation() {
+    if (animationRef.current !== null) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+
+    if (canvas && ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
   function draw(analyser, canvas) {
     if (!canvas) return;
 
@@ -59,7 +77,7 @@ export default function AudioVisualizer() {
     const bins = new Uint8Array(analyser.frequencyBinCount);
 
     function frame() {
-      if (!canvas.isConnected || sourceRef.current === null) {
+      if (!canvas.isConnected || !isPlayingRef.current) {
         animationRef.current = null;
         return;
       }
@@ -68,10 +86,9 @@ export default function AudioVisualizer() {
 
       const width = canvas.width;
       const height = canvas.height;
+      const barWidth = width / bins.length;
 
       ctx.clearRect(0, 0, width, height);
-
-      const barWidth = width / bins.length;
 
       bins.forEach((value, index) => {
         const barHeight = (value / 255) * height;
@@ -89,10 +106,7 @@ export default function AudioVisualizer() {
       animationRef.current = requestAnimationFrame(frame);
     }
 
-    if (animationRef.current !== null) {
-      cancelAnimationFrame(animationRef.current);
-    }
-
+    stopAnimation();
     frame();
   }
 
@@ -116,11 +130,10 @@ export default function AudioVisualizer() {
           return previous;
         }
 
-        return [...previous, result];
+        return [...previous, result].sort((a, b) => a.id - b.id);
       });
 
-      setCurrentTrack(result);
-      setMessage(`Track ${result.id} loaded and decoded successfully.`);
+      setMessage(`Track ${result.id} loaded successfully.`);
       setUrl("");
     } catch (error) {
       setMessage(
@@ -131,92 +144,115 @@ export default function AudioVisualizer() {
     }
   }
 
-  async function playTrack() {
-    if (!currentTrack) {
-      setMessage("Load a track successfully before playing it.");
+  function playNextTrack() {
+    if (!isPlayingRef.current) return;
+
+    const tracks = playbackListRef.current;
+    const index = playbackIndexRef.current;
+
+    if (index >= tracks.length) {
+      isPlayingRef.current = false;
+      setIsPlaying(false);
+      setCurrentTrackId(null);
+      stopAnimation();
+      setMessage("All tracks have finished playing.");
+      return;
+    }
+
+    const track = tracks[index];
+
+    playbackIndexRef.current += 1;
+    setCurrentTrackId(track.id);
+    setMessage(`Playing track ${track.id} (${index + 1}/${tracks.length}).`);
+
+    const context = queueRef.current.context;
+
+    if (!context || context.state === "closed") {
+      isPlayingRef.current = false;
+      setIsPlaying(false);
+      setMessage("Audio context is unavailable. Press Play to try again.");
+      return;
+    }
+
+    const source = context.createBufferSource();
+    const analyser = context.createAnalyser();
+
+    analyser.fftSize = 512;
+    source.buffer = track.audioBuffer;
+
+    source.connect(analyser);
+    analyser.connect(context.destination);
+
+    sourceRef.current = source;
+    analyserRef.current = analyser;
+
+    source.onended = () => {
+      if (sourceRef.current !== source) return;
+
+      source.disconnect();
+      sourceRef.current = null;
+
+      if (isPlayingRef.current) {
+        stopAnimation();
+        playNextTrack();
+      }
+    };
+
+    source.start();
+    draw(analyser, canvasRef.current);
+  }
+
+  async function startPlayback() {
+    if (isPlayingRef.current) {
+      setMessage("Playback is already running.");
+      return;
+    }
+
+    if (loadedTracks.length === 0) {
+      setMessage("Load at least one track before playing.");
       return;
     }
 
     try {
-      const context = await queueRef.current.getContext();
+      await queueRef.current.getContext();
 
-      if (sourceRef.current) {
-        try {
-          sourceRef.current.stop();
-        } catch {
-          // The source may already have ended.
-        }
+      // Play all successfully loaded tracks, oldest first.
+      playbackListRef.current = [...loadedTracks].sort((a, b) => a.id - b.id);
 
-        sourceRef.current.disconnect();
-        sourceRef.current = null;
-      }
+      playbackIndexRef.current = 0;
+      isPlayingRef.current = true;
+      setIsPlaying(true);
 
-      if (animationRef.current !== null) {
-        cancelAnimationFrame(animationRef.current);
-        animationRef.current = null;
-      }
-
-      const source = context.createBufferSource();
-      const analyser = context.createAnalyser();
-
-      analyser.fftSize = 512;
-      source.buffer = currentTrack.audioBuffer;
-
-      source.connect(analyser);
-      analyser.connect(context.destination);
-
-      sourceRef.current = source;
-      analyserRef.current = analyser;
-
-      source.onended = () => {
-        if (sourceRef.current === source) {
-          sourceRef.current = null;
-
-          if (animationRef.current !== null) {
-            cancelAnimationFrame(animationRef.current);
-            animationRef.current = null;
-          }
-
-          setMessage("Playback finished.");
-        }
-      };
-
-      source.start();
-
-      draw(analyser, canvasRef.current);
-      setMessage(`Playing track ${currentTrack.id}.`);
+      playNextTrack();
     } catch (error) {
+      isPlayingRef.current = false;
+      setIsPlaying(false);
       setMessage(`Playback failed: ${error.message}`);
     }
   }
 
   function stopPlayback() {
+    // Prevent onended from advancing to another track.
+    isPlayingRef.current = false;
+    setIsPlaying(false);
+
     const source = sourceRef.current;
+    sourceRef.current = null;
 
     if (source) {
-      sourceRef.current = null;
+      source.onended = null;
 
       try {
         source.stop();
       } catch {
-        // The source may already have ended.
+        // The source may already have stopped.
       }
 
       source.disconnect();
     }
 
-    if (animationRef.current !== null) {
-      cancelAnimationFrame(animationRef.current);
-      animationRef.current = null;
-    }
-
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-
-    if (canvas && ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
+    stopAnimation();
+    setCurrentTrackId(null);
     setMessage("Playback stopped.");
   }
 
@@ -263,13 +299,17 @@ export default function AudioVisualizer() {
       <div className="audio-controls">
         <button
           className="button button-primary"
-          onClick={playTrack}
-          disabled={!currentTrack}
+          onClick={startPlayback}
+          disabled={isPlaying || loadedTracks.length === 0}
         >
-          Play loaded track
+          Play all (FIFO)
         </button>
 
-        <button className="button button-secondary" onClick={stopPlayback}>
+        <button
+          className="button button-secondary"
+          onClick={stopPlayback}
+          disabled={!isPlaying}
+        >
           Stop
         </button>
       </div>
@@ -285,12 +325,12 @@ export default function AudioVisualizer() {
       </div>
 
       <div className="section-heading compact-heading">
-        <h3>FIFO queue</h3>
+        <h3>FIFO loading queue</h3>
         <span className="muted">{allTasks.length} pending or active</span>
       </div>
 
       {allTasks.length === 0 ? (
-        <p className="empty-state">No pending tasks.</p>
+        <p className="empty-state">No pending loading tasks.</p>
       ) : (
         <ul className="task-list">
           {allTasks.map((task) => (
@@ -313,7 +353,7 @@ export default function AudioVisualizer() {
       )}
 
       <div className="section-heading compact-heading">
-        <h3>Successfully loaded tracks</h3>
+        <h3>Loaded tracks — playback order</h3>
         <span className="muted">{loadedTracks.length} tracks</span>
       </div>
 
@@ -323,32 +363,26 @@ export default function AudioVisualizer() {
         </p>
       ) : (
         <ul className="task-list">
-          {loadedTracks.map((track) => (
+          {loadedTracks.map((track, index) => (
             <li key={track.id} className="task-row">
               <div>
-                <strong>Track #{track.id}</strong>
+                <strong>
+                  {index + 1}. Track #{track.id}
+                  {currentTrackId === track.id ? " — PLAYING" : ""}
+                </strong>
                 <p className="truncate">{track.url}</p>
                 <span className="muted">SUCCESS</span>
               </div>
-
-              <button
-                className="button button-primary"
-                onClick={() => {
-                  setCurrentTrack(track);
-                  setMessage(`Track ${track.id} selected for playback.`);
-                }}
-              >
-                Select
-              </button>
             </li>
           ))}
         </ul>
       )}
 
       <p className="help-text">
-        Audio URLs must be reachable and permit browser cross-origin requests
-        (CORS). The queue processes one task at a time, preserving FIFO order.
-        FFT size is 512, giving 256 frequency bins.
+        Loading and playback both follow FIFO order. Press Play all (FIFO) to
+        play every successfully loaded track, starting with the oldest. Playback
+        advances automatically when each track ends. Audio URLs must allow
+        browser cross-origin requests (CORS).
       </p>
     </section>
   );

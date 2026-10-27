@@ -10,10 +10,10 @@ export class AudioQueue {
 
   getSnapshot() {
     return {
-      queue: this.queue.map((task) => ({
-        id: task.id,
-        url: task.url,
-        status: task.status,
+      queue: this.queue.map(({ id, url, status }) => ({
+        id,
+        url,
+        status,
       })),
       activeTask: this.activeTask
         ? {
@@ -29,18 +29,14 @@ export class AudioQueue {
   notify() {
     const snapshot = this.getSnapshot();
 
-    this.listeners.forEach((listener) => {
-      listener(snapshot);
-    });
+    this.listeners.forEach((listener) => listener(snapshot));
   }
 
   subscribe(listener) {
     this.listeners.add(listener);
     listener(this.getSnapshot());
 
-    return () => {
-      this.listeners.delete(listener);
-    };
+    return () => this.listeners.delete(listener);
   }
 
   async getContext() {
@@ -108,7 +104,7 @@ export class AudioQueue {
 
     const index = this.queue.findIndex((task) => task.id === taskId);
 
-    if (index < 0) return false;
+    if (index === -1) return false;
 
     const [task] = this.queue.splice(index, 1);
 
@@ -118,7 +114,6 @@ export class AudioQueue {
     this.settle(task, new DOMException("Task cancelled.", "AbortError"));
 
     this.notify();
-
     return true;
   }
 
