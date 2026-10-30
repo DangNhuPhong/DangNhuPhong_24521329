@@ -1,0 +1,116 @@
+.card {
+  --card-bg: #ffffff;
+  --card-border: #dce3eb;
+  --text-primary: #172033;
+  --text-secondary: #64748b;
+  --accent: #2563eb;
+
+  width: 100%;
+  max-width: 440px;
+  padding: 24px;
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+
+  color: var(--text-primary);
+  box-shadow: 0 8px 24px rgb(15 23 42 / 8%);
+
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.avatar,
+.avatarFallback {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.avatar {
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: grid;
+  place-items: center;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 16px 0;
+  margin: 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.metrics dt {
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.metrics dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.skillSection h3 {
+  font-size: 15px;
+  margin: 20px 0 12px;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skills li {
+  max-width: 100%;
+}
+
+@media (max-width: 375px) {
+  .card {
+    padding: 16px;
+  }
+
+  .header {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header h2 {
+    font-size: 17px;
+    overflow-wrap: anywhere;
+  }
+
+  .header p {
+    font-size: 12px;
+  }
+}
