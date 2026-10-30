@@ -73,8 +73,3 @@ multi-server transactional inventory service.
 ## AI verification
 
 See TASK_DECOMPOSITION.md and AI_FAILURE_AUDIT.md.
-
-## Limitations
-
-The application has not been assigned a verified Lighthouse score by this
-README. Record actual results after running the audits.
