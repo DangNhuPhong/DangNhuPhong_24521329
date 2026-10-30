@@ -37,7 +37,9 @@ npm run preview
 - Change page size and navigate between pages.
 - Select and delete rows.
 - Navigate data cells with arrow keys.
-- Select with Enter and toggle selection with Space.
+- Select with Enter and toggle selection with Space.\
+- Lighthouse
+  ![Lighthouse](./src/assets/image.png)
 
 ## HW2
 
