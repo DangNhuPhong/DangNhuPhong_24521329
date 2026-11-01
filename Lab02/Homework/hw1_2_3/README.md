@@ -75,3 +75,7 @@ multi-server transactional inventory service.
 ## AI verification
 
 See TASK_DECOMPOSITION.md and AI_FAILURE_AUDIT.md.
+
+## Mistake
+
+Bescause some misunderstanding in class when I read exercise in lab 3 so I do exercise 1 in the same project with lab 2. So there are some commit for lab 3 in folder lab 2.
