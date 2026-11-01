@@ -1,3 +1,5 @@
+import { useState } from "react";
+const [people, setPeople] = useState(initialData);
 export const SMART_PEOPLE = [
   { id: "sp-1", name: "Johann Goethe", age: 82, iq: 210 },
   { id: "sp-2", name: "Albert Einstein", age: 76, iq: 205 },
@@ -8,5 +10,16 @@ export const SMART_PEOPLE = [
 ];
 
 export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
-  return <section aria-label="Pioneer Directory"></section>;
+  return (
+    <section aria-labelledby="dir-title">
+      <h2 id="dir-title">Pioneer Directory</h2>
+      <ul>
+        {people.map((p) => (
+          <li key={p.id}>
+            {p.name} — IQ {p.iq}, Age {p.age}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }

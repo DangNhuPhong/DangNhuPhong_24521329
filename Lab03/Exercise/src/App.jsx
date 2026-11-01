@@ -1,5 +1,5 @@
 import { DeveloperCard } from "./components/DeveloperCard.jsx";
-
+import { ScientistDirectory } from "./components/ScientistDirectory.jsx";
 export function App() {
   return (
     <main>
@@ -7,7 +7,9 @@ export function App() {
       <section aria-label="Exercise 1">
         <DeveloperCard />
       </section>
-      <section aria-label="Exercise 2"></section>
+      <section aria-label="Exercise 2">
+        <ScientistDirectory />
+      </section>
       <section aria-label="Exercise 3"></section>
     </main>
   );
