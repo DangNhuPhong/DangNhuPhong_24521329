@@ -86,6 +86,10 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
           </li>
         ))}
       </ul>
+      <output role="status" aria-live="polite">
+        Found {visible.length} pioneers
+      </output>
+      {visible.length === 0 && <p>No pioneers match your filters.</p>}
 
       {visible.length === 0 && <p>No scientist found.</p>}
     </section>
