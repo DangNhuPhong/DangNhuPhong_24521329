@@ -1,7 +1,6 @@
 import { SkillBadge } from "./SkillBadge.jsx";
 import { Fragment, useState } from "react";
-const [failedUrl, setFailedUrl] = useState(null);
-const showImg = Boolean(avatarUrl) && failedUrl !== avatarUrl;
+import styles from "./DeveloperCard.module.css";
 
 const getInitials = (name) =>
   name
@@ -18,11 +17,14 @@ export function DeveloperCard({
   metrics = { commits: 3453, vdomNodes: 1, a11yScore: 99 },
   skills = [{ id: "sk-1", name: "React 19 Fiber", tier: "Core" }],
 }) {
+  const [failedUrl, setFailedUrl] = useState(null);
+  const showImg = Boolean(avatarUrl) && failedUrl !== avatarUrl;
   return (
-    <article aria-labelledby="dev-heading">
-      <header>
+    <article className={styles.card} aria-labelledby="dev-heading">
+      <header className={styles.header}>
         {showImg ? (
           <img
+            className={styles.avatar}
             src={avatarUrl}
             alt={fullName}
             width="64"
@@ -30,7 +32,11 @@ export function DeveloperCard({
             onError={() => setFailedUrl(avatarUrl)}
           />
         ) : (
-          <span role="img" aria-label={fullName}>
+          <span
+            className={styles.avatarFallback}
+            role="img"
+            aria-label={fullName}
+          >
             {getInitials(fullName)}
           </span>
         )}
@@ -39,7 +45,7 @@ export function DeveloperCard({
           <p>{role}</p>
         </hgroup>
       </header>
-      <dl>
+      <dl className={styles.metrics}>
         {Object.entries(metrics).map(([k, v]) => (
           <Fragment key={k}>
             <dt>{k}</dt>
@@ -47,7 +53,7 @@ export function DeveloperCard({
           </Fragment>
         ))}
       </dl>
-      <ul aria-label="Engineered Skills">
+      <ul className={styles.skills} aria-label="Engineered Skills">
         {skills.map((s) => (
           <SkillBadge key={s.id} name={s.name} tier={s.tier} />
         ))}
