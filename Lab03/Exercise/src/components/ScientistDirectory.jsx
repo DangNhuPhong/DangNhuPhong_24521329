@@ -36,12 +36,16 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   };
   const handleDelete = (id) =>
     setPeople((prev) => prev.filter((p) => p.id !== id));
+  const handleReset = () => setPeople(initialData);
 
   return (
     <section aria-labelledby="dir-title">
       <h2 id="dir-title">Pioneer Directory</h2>
 
       <form role="search" onSubmit={(e) => e.preventDefault()}>
+        <button type="button" onClick={handleReset}>
+          Reset
+        </button>
         <label htmlFor={qId}>Name</label>
 
         <input
