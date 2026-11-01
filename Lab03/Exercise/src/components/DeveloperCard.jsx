@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { SkillBadge } from "./SkillBadge.jsx";
 
 export function DeveloperCard({
   fullName = "Đặng Như Phong",
@@ -24,6 +25,11 @@ export function DeveloperCard({
           </Fragment>
         ))}
       </dl>
+      <ul aria-label="Engineered Skills">
+        {skills.map((s) => (
+          <SkillBadge key={s.id} name={s.name} tier={s.tier} />
+        ))}
+      </ul>
     </article>
   );
 }
