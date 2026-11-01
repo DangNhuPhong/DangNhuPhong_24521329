@@ -1,6 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { fetchKraftonPubgTelemetry } from "../services/pubgTelemetry.js";
+import styles from "./PubgMatchTelemetry.module.css";
 
 export function PubgMatchTelemetry({ squadId = "te" }) {
   const [view, setView] = useState({
@@ -45,7 +45,15 @@ export function PubgMatchTelemetry({ squadId = "te" }) {
 
   // Loading state
   if (view.status === "LOADING" || view.status === "IDLE") {
-    return <p>Syncing KRAFTON Radar...</p>;
+    return (
+      <section
+        aria-busy="true"
+        aria-label="Loading telemetry"
+        className={`${styles.panel} ${styles.skeleton}`}
+      >
+        <p>Syncing KRAFTON Radar...</p>
+      </section>
+    );
   }
 
   // Error state
@@ -56,7 +64,7 @@ export function PubgMatchTelemetry({ squadId = "te" }) {
   // Success state
   if (view.status === "SUCCESS" && view.data) {
     return (
-      <article>
+      <article className={styles.panel}>
         <h3>{view.data.name}</h3>
 
         <dl>

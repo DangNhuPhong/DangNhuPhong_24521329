@@ -1,0 +1,25 @@
+.panel {
+  min-height: 220px;
+  padding: var(--gap);
+  background: var(--card);
+  border-radius: var(--radius);
+}
+.skeleton {
+  background: linear-gradient(90deg, #14213a, #1b2d4d, #14213a);
+  background-size: 200% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
