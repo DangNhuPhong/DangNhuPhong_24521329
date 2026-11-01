@@ -10,20 +10,26 @@ export const SMART_PEOPLE = [
 ];
 
 export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
-  const [people, setPeople] = useState(initialData);
+  // State
+  const [people] = useState(initialData);
   const [query, setQuery] = useState("");
+  const [minIq, setMinIq] = useState(160);
+  const [sortBy, setSortBy] = useState("iq-desc");
 
+  // Unique IDs
   const qId = useId();
+  const iqId = useId();
+  const sortId = useId();
 
+  // Search
   const q = query.trim().toLowerCase();
 
-  const visible = people.filter(
-    (p) => p.name.toLowerCase().includes(q) && p.iq >= minIq,
-  );
+  // Filter and sort
+  const visible = people
+    .filter((p) => p.name.toLowerCase().includes(q) && p.iq >= minIq)
+    .toSorted((a, b) => (sortBy === "iq-desc" ? b.iq - a.iq : a.age - b.age));
 
-  const iqId = useId();
-  const [minIq, setMinIq] = useState(160);
-
+  // Handle IQ input
   const handleIq = (e) => {
     const v = e.target.valueAsNumber;
     setMinIq(Number.isNaN(v) ? 0 : v);
@@ -43,8 +49,21 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search scientist..."
         />
+
         <label htmlFor={iqId}>Min IQ</label>
+
         <input id={iqId} type="number" value={minIq} onChange={handleIq} />
+
+        <label htmlFor={sortId}>Sort by</label>
+
+        <select
+          id={sortId}
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="iq-desc">IQ (high to low)</option>
+          <option value="age-asc">Age (young to old)</option>
+        </select>
       </form>
 
       <ul>
