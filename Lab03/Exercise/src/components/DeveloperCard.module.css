@@ -1,0 +1,58 @@
+.card {
+  --card-pad: 1rem;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: var(--card-pad);
+  display: grid;
+  gap: var(--gap);
+}
+
+.header {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  min-width: 0;
+}
+
+.avatar,
+.avatarFallback {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.avatar {
+  object-fit: cover;
+}
+
+.avatarFallback {
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+.metrics dd {
+  margin: 0;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.skills li {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+}
