@@ -1,3 +1,4 @@
+import styles from "./SquadSelector.module.css";
 const SQUADS = [
   { id: "ces", label: "Cerberus Esports" },
   { id: "te", label: "The Expendables" },
@@ -6,7 +7,7 @@ const SQUADS = [
 
 export function SquadSelector({ value, onChange }) {
   return (
-    <nav aria-label="Select squad">
+    <nav className={styles.nav} aria-label="Select squad">
       {SQUADS.map((s) => (
         <button
           key={s.id}

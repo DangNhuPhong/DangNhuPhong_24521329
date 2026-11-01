@@ -23,3 +23,13 @@
     background-position: -200% 0;
   }
 }
+
+.panel dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+.panel dd {
+  margin: 0;
+}
