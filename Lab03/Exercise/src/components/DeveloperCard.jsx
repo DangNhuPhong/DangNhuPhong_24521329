@@ -1,5 +1,16 @@
 import { Fragment } from "react";
 import { SkillBadge } from "./SkillBadge.jsx";
+import { Fragment, useState } from "react";
+const [failedUrl, setFailedUrl] = useState(null);
+const showImg = Boolean(avatarUrl) && failedUrl !== avatarUrl;
+
+const getInitials = (name) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0].toUpperCase())
+    .join("");
 
 export function DeveloperCard({
   fullName = "Đặng Như Phong",
@@ -11,7 +22,19 @@ export function DeveloperCard({
   return (
     <article aria-labelledby="dev-heading">
       <header>
-        <img src={avatarUrl} alt={fullName} width="64" height="64" />
+        {showImg ? (
+          <img
+            src={avatarUrl}
+            alt={fullName}
+            width="64"
+            height="64"
+            onError={() => setFailedUrl(avatarUrl)}
+          />
+        ) : (
+          <span role="img" aria-label={fullName}>
+            {getInitials(fullName)}
+          </span>
+        )}
         <hgroup>
           <h2 id="dev-heading">{fullName}</h2>
           <p>{role}</p>
