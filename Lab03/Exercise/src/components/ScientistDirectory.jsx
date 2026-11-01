@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-
+import styles from "./ScientistDirectory.module.css";
 export const SMART_PEOPLE = [
   { id: "sp-1", name: "Johann Goethe", age: 82, iq: 210 },
   { id: "sp-2", name: "Albert Einstein", age: 76, iq: 205 },
@@ -39,10 +39,14 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const handleReset = () => setPeople(initialData);
 
   return (
-    <section aria-labelledby="dir-title">
+    <section aria-labelledby="dir-title" className={styles.directory}>
       <h2 id="dir-title">Pioneer Directory</h2>
 
-      <form role="search" onSubmit={(e) => e.preventDefault()}>
+      <form
+        role="search"
+        className={styles.form}
+        onSubmit={(e) => e.preventDefault()}
+      >
         <button type="button" onClick={handleReset}>
           Reset
         </button>
@@ -72,7 +76,7 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
         </select>
       </form>
 
-      <ul>
+      <ul className={styles.list}>
         {visible.map((p) => (
           <li key={p.id}>
             {p.name} — IQ {p.iq}, Age {p.age}
