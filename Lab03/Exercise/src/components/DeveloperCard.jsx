@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { SkillBadge } from "./SkillBadge.jsx";
 import { Fragment, useState } from "react";
 const [failedUrl, setFailedUrl] = useState(null);
