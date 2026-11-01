@@ -34,6 +34,8 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
     const v = e.target.valueAsNumber;
     setMinIq(Number.isNaN(v) ? 0 : v);
   };
+  const handleDelete = (id) =>
+    setPeople((prev) => prev.filter((p) => p.id !== id));
 
   return (
     <section aria-labelledby="dir-title">
@@ -70,6 +72,13 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
         {visible.map((p) => (
           <li key={p.id}>
             {p.name} — IQ {p.iq}, Age {p.age}
+            <button
+              type="button"
+              onClick={() => handleDelete(p.id)}
+              aria-label={`Delete ${p.name}`}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
