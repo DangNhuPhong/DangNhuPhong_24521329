@@ -17,7 +17,17 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
 
   const q = query.trim().toLowerCase();
 
-  const visible = people.filter((p) => p.name.toLowerCase().includes(q));
+  const visible = people.filter(
+    (p) => p.name.toLowerCase().includes(q) && p.iq >= minIq,
+  );
+
+  const iqId = useId();
+  const [minIq, setMinIq] = useState(160);
+
+  const handleIq = (e) => {
+    const v = e.target.valueAsNumber;
+    setMinIq(Number.isNaN(v) ? 0 : v);
+  };
 
   return (
     <section aria-labelledby="dir-title">
@@ -33,6 +43,8 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search scientist..."
         />
+        <label htmlFor={iqId}>Min IQ</label>
+        <input id={iqId} type="number" value={minIq} onChange={handleIq} />
       </form>
 
       <ul>
