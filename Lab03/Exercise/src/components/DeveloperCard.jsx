@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 export function DeveloperCard({
   fullName = "Đặng Như Phong",
   role = "Student at UIT",
@@ -14,6 +16,14 @@ export function DeveloperCard({
           <p>{role}</p>
         </hgroup>
       </header>
+      <dl>
+        {Object.entries(metrics).map(([k, v]) => (
+          <Fragment key={k}>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </Fragment>
+        ))}
+      </dl>
     </article>
   );
 }
