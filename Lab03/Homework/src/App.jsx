@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { DrumMachine } from "./hw1/DrumMachine";
+import { GrandPiano88 } from "./hw2/GrandPiano88";
 
 const HOMEWORKS = [
   { id: "hw1", name: "HW1 - Drum Kit" },
@@ -35,7 +36,7 @@ export default function App() {
 
       <section className="panel">
         {activePage === "hw1" && <DrumMachine />}
-        {activePage === "hw2" && <h2>Homework 2 - Piano</h2>}
+        {activePage === "hw2" && <GrandPiano88 />}
         {activePage === "hw3" && <h2>Homework 3 - PUBG Arena</h2>}
       </section>
     </main>
