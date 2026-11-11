@@ -1,12 +1,24 @@
 import { useState } from "react";
-import "./App.css";
+
 import { DrumMachine } from "./hw1/DrumMachine";
 import { GrandPiano88 } from "./hw2/GrandPiano88";
+import { KraftonPubgVnArena } from "./hw3/KraftonPubgVnArena";
+
+import "./App.css";
 
 const HOMEWORKS = [
-  { id: "hw1", name: "HW1 - Drum Kit" },
-  { id: "hw2", name: "HW2 - 88-Key Piano" },
-  { id: "hw3", name: "HW3 - PUBG VN Arena" },
+  {
+    id: "hw1",
+    name: "HW1 - Drum Kit",
+  },
+  {
+    id: "hw2",
+    name: "HW2 - 88-Key Piano",
+  },
+  {
+    id: "hw3",
+    name: "HW3 - PUBG VN Arena",
+  },
 ];
 
 export default function App() {
@@ -16,7 +28,9 @@ export default function App() {
     <main className="site-shell">
       <header className="site-header">
         <p className="eyebrow">React 19 + Vite</p>
+
         <h1>Lab 03 - Homework</h1>
+
         <p>Production React 19</p>
       </header>
 
@@ -34,11 +48,13 @@ export default function App() {
         ))}
       </nav>
 
-      <section className="panel">
-        {activePage === "hw1" && <DrumMachine />}
-        {activePage === "hw2" && <GrandPiano88 />}
-        {activePage === "hw3" && <h2>Homework 3 - PUBG Arena</h2>}
-      </section>
+      {activePage === "hw1" && <DrumMachine />}
+
+      {activePage === "hw2" && <GrandPiano88 />}
+
+      {activePage === "hw3" && <KraftonPubgVnArena />}
+
+      <footer className="site-footer">Lab 03 - React 19 Homework</footer>
     </main>
   );
 }
