@@ -1,0 +1,110 @@
+.drop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.drop-card {
+  min-width: 0;
+}
+
+.drop-card h3 {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #a7f3d0;
+}
+
+.countdown {
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.force-conflict {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  margin: 16px 0 10px;
+  font-weight: 400;
+}
+
+.claim-status {
+  color: #cbd5e1;
+  min-height: 1.5em;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.filter-row input,
+.filter-row select,
+.panel > select {
+  width: 100%;
+  max-width: 270px;
+  padding: 9px;
+  background: #1e293b;
+  color: white;
+  border: 1px solid #64748b;
+  border-radius: 7px;
+}
+
+.filter-row label {
+  margin: 4px 0;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #334155;
+}
+
+thead th {
+  color: #93c5fd;
+}
+
+.feed-window {
+  height: 320px;
+  overflow-y: auto;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #0e162a;
+  margin-top: 14px;
+}
+
+.feed-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 9px 12px;
+  border-bottom: 1px solid #243550;
+  font-size: 0.86rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 375px) {
+  .drop-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
