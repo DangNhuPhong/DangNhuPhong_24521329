@@ -127,3 +127,11 @@ dd {
     padding: 14px;
   }
 }
+
+.skeleton-line {
+  display: block;
+  height: 20px;
+  margin: 16px 0;
+  background: #dce3ed;
+  border-radius: 4px;
+}
