@@ -1,11 +1,14 @@
 import { Routes, Route } from "react-router";
+import AppLayout from "./layouts/AppLayout.jsx";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<h1>Lab 04 Exercise</h1>} />
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<p>Choose an exercise in the navigation.</p>} />
 
-      <Route path="*" element={<h1>404: Page not found</h1>} />
+        <Route path="*" element={<h2>404: Page not found</h2>} />
+      </Route>
     </Routes>
   );
 }
