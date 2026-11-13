@@ -2,7 +2,10 @@ import { Routes, Route } from "react-router";
 import AppLayout from "./layouts/AppLayout.jsx";
 import PeopleLayout from "./people/PeopleLayout.jsx";
 import { people } from "./data/people.js";
-import PersonDetail from "./people/PersonDetail.jsx";
+import { lazy, Suspense } from "react";
+import DetailSkeleton from "./components/DetailSkeleton.jsx";
+
+const PersonDetail = lazy(() => import("./people/PersonDetail.jsx"));
 
 export default function App() {
   return (
@@ -12,7 +15,14 @@ export default function App() {
         <Route path="people" element={<PeopleLayout people={people} />}>
           <Route index element={<p>Select a person from the directory.</p>} />
 
-          <Route path=":id" element={<PersonDetail />} />
+          <Route
+            path=":id"
+            element={
+              <Suspense fallback={<DetailSkeleton />}>
+                <PersonDetail />
+              </Suspense>
+            }
+          />
         </Route>
         <Route path="*" element={<h2>404: Page not found</h2>} />
       </Route>
