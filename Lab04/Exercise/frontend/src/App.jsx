@@ -4,6 +4,7 @@ import PeopleLayout from "./people/PeopleLayout.jsx";
 import { people } from "./data/people.js";
 import { lazy, Suspense } from "react";
 import DetailSkeleton from "./components/DetailSkeleton.jsx";
+import RouteErrorBoundary from "./components/RouteErrorBoundary.jsx";
 
 const PersonDetail = lazy(() => import("./people/PersonDetail.jsx"));
 
@@ -18,9 +19,11 @@ export default function App() {
           <Route
             path=":id"
             element={
-              <Suspense fallback={<DetailSkeleton />}>
-                <PersonDetail />
-              </Suspense>
+              <RouteErrorBoundary>
+                <Suspense fallback={<DetailSkeleton />}>
+                  <PersonDetail />
+                </Suspense>
+              </RouteErrorBoundary>
             }
           />
         </Route>
