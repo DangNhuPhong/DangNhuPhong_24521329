@@ -181,3 +181,32 @@ button {
 [aria-invalid="true"] {
   border-color: #a11919;
 }
+
+.forum-form {
+  max-width: 680px;
+}
+
+.message-list {
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+}
+
+.message-list dt {
+  margin-top: 16px;
+}
+
+.message-list dt:first-child {
+  margin-top: 0;
+}
+
+.message-list dd {
+  margin-top: 6px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+time {
+  font-weight: 400;
+  font-size: 0.85em;
+}
