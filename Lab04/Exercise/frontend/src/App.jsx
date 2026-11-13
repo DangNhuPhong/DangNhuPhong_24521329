@@ -6,6 +6,7 @@ import { lazy, Suspense } from "react";
 import DetailSkeleton from "./components/DetailSkeleton.jsx";
 import RouteErrorBoundary from "./components/RouteErrorBoundary.jsx";
 import SimpleForm from "./form/SimpleForm.jsx";
+import ForumPage from "./forum/ForumPage.jsx";
 
 const PersonDetail = lazy(() => import("./people/PersonDetail.jsx"));
 
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="form" element={<SimpleForm />} />
         <Route path="*" element={<h2>404: Page not found</h2>} />
       </Route>
+      <Route path="forum" element={<ForumPage />} />
     </Routes>
   );
 }

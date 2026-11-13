@@ -23,6 +23,9 @@ export default function AppLayout() {
           <NavLink to="/form" className={linkClass}>
             Form
           </NavLink>
+          <NavLink to="/forum" className={linkClass}>
+            Forum
+          </NavLink>
         </nav>
       </header>
 
