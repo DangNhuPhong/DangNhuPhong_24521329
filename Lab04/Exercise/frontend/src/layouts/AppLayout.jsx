@@ -20,6 +20,9 @@ export default function AppLayout() {
           <NavLink to="/people" className={linkClass}>
             People
           </NavLink>
+          <NavLink to="/form" className={linkClass}>
+            Form
+          </NavLink>
         </nav>
       </header>
 
